@@ -1,0 +1,50 @@
+﻿@page "/books"
+@inject HttpClient Http
+
+<h3>Books Sample</h3>
+<p>This page demonstrates fetching data from an Azure Function.</p>
+
+<p>Status: @message</p>
+
+@if (books == null)
+{
+    <p><em>Loading....</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Publisher</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in books)
+            {
+                <tr>
+                    <td>@book.Title</td>
+                    <td>@book.Publisher</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+
+    Book[] books;
+
+    string message;
+
+    protected override async Task OnInitializedAsync()
+    {
+        message = "OnInitializeAsync";
+        Http.BaseAddress = new Uri("https://bookfunctionapi.azurewebsites.net");
+        //Http.BaseAddress = new Uri("http://localhost:7071");
+        books = await Http.GetFromJsonAsync<Book[]>("/api/BookFunction?");
+        message = "Completed download of books";
+    }
+
+}
