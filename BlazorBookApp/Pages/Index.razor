@@ -1,7 +1,9 @@
 ﻿@page "/"
 
-<h1>Sample Blazor WebAssembly App</h1>
+<h1>Sample BlazorApp</h1>
 
-This is a Blazor WebAssembly application that retrieves a list of books using an Azure Function Api call.
+This is a Blazor WebAssembly application that demonstrates using an Azure Function Api call on the backend.
+The function uses an Http trigger to return an IEnumerable list of books which is deserialized using an Http client in the app
+when clicking on 'Book List' in the menu. The Book model is contained in a shared library between the function and the app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
